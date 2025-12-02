@@ -117,12 +117,7 @@ function renderBook(book) {
     if (book.readAt) {
         const readDate = new Date(book.readAt);
         const readYear = readDate.getFullYear();
-        meta += ` · read ${readYear}`;
-    }
-
-    // Show publication year
-    if (book.year) {
-        meta += ` · pub ${book.year}`;
+        meta += ` · ${readYear}`;
     }
 
     const url = book.url || '#';
