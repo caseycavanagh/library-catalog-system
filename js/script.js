@@ -57,6 +57,9 @@ function parseGoodreadsRSS(xmlText) {
         const shelf = item.querySelector('user_shelves')?.textContent || null;
         const bookId = item.querySelector('book_id')?.textContent || '';
         const readAt = item.querySelector('user_read_at')?.textContent || null;
+        const coverImage = item.querySelector('book_large_image_url')?.textContent ||
+                          item.querySelector('book_image_url')?.textContent ||
+                          item.querySelector('book_medium_image_url')?.textContent || '';
 
         books.push({
             title: title,
@@ -65,6 +68,7 @@ function parseGoodreadsRSS(xmlText) {
             shelf: shelf,
             bookId: bookId,
             readAt: readAt,
+            coverImage: coverImage,
             url: bookId ? `https://www.goodreads.com/book/show/${bookId}` : ''
         });
     });
@@ -112,11 +116,24 @@ function renderCatalog(booksToRender) {
 
 function renderBook(book) {
     const url = book.url || '#';
+    const coverImageHtml = book.coverImage
+        ? `<img src="${book.coverImage}" alt="${book.title}" class="BookCover__image" />`
+        : '';
+
+    // Generate random positioning and rotation for each book cover
+    const randomX = (Math.random() - 0.5) * 60; // -30% to +30%
+    const randomY = (Math.random() - 0.5) * 40; // -20% to +20%
+    const randomRotate = (Math.random() - 0.5) * 16; // -8deg to +8deg
 
     return `
-        <a href="${url}" target="_blank" rel="noopener noreferrer" class="catalog-row">
+        <a href="${url}"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="catalog-row"
+           style="--random-x: ${randomX}%; --random-y: ${randomY}%; --random-rotate: ${randomRotate}deg;">
             <div class="book-title">${book.title}</div>
             <div class="book-meta">${book.author}</div>
+            ${coverImageHtml}
         </a>
     `;
 }
