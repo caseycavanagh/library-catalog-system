@@ -130,7 +130,7 @@ body {
     max-width: 100%;
 }
 
-.BookCover__image {
+.BookCover__container {
     display: none;
     position: absolute;
     left: 50%;
@@ -143,7 +143,37 @@ body {
     box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
     z-index: 1000;
     pointer-events: none;
-    filter: grayscale(100%) sepia(100%) hue-rotate(180deg) saturate(0.6) brightness(0.9);
+}
+
+.BookCover__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: grayscale(100%) contrast(1.1);
+}
+
+.BookCover__container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, #00ffff, #000000);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+}
+
+.BookCover__container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #00ffff;
+    mix-blend-mode: lighten;
+    pointer-events: none;
 }
 
 /* Hover effects - only on devices with hover capability (not mobile) */
@@ -164,7 +194,7 @@ body {
         text-decoration: none;
     }
 
-    .catalog-row:hover .BookCover__image {
+    .catalog-row:hover .BookCover__container {
         display: block;
     }
 }

@@ -139,7 +139,9 @@ function renderCatalog(booksToRender) {
 function renderBook(book) {
     const url = book.url || '#';
     const coverImageHtml = book.coverImage
-        ? `<img src="${book.coverImage}" alt="${book.title}" class="BookCover__image" />`
+        ? `<div class="BookCover__container">
+               <img src="${book.coverImage}" alt="${book.title}" class="BookCover__image" />
+           </div>`
         : '';
 
     // Generate random positioning and rotation for each book cover
