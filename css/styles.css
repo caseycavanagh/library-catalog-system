@@ -96,18 +96,7 @@ body {
 }
 
 .catalog-row:hover {
-    background-color: #00ffff;
-    color: #000000;
-}
-
-.catalog-row:hover .book-title,
-.catalog-row:hover .book-meta {
-    color: #000000;
-    text-shadow: none;
-}
-
-.catalog-row:hover .book-meta {
-    text-decoration: none;
+    background-color: transparent;
 }
 
 .book-title {
@@ -115,9 +104,12 @@ body {
     margin-bottom: 6px;
     text-transform: uppercase;
     color: #00ffff;
+    display: inline;
 }
 
 .catalog-row:hover .book-title {
+    background-color: #00ffff;
+    color: #000000;
     text-decoration: none;
 }
 
@@ -125,6 +117,13 @@ body {
     font-size: 16px;
     color: #00ffff;
     line-height: 1.5;
+    display: inline;
+}
+
+.catalog-row:hover .book-meta {
+    background-color: #00ffff;
+    color: #000000;
+    text-decoration: none;
 }
 
 .BookCover__image {
