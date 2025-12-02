@@ -112,24 +112,16 @@ body {
 
 .BookCover__image {
     display: none;
-    position: fixed;
+    position: absolute;
+    left: 50%;
     top: 50%;
+    transform: translate(calc(-50% + var(--random-x, 0%)), calc(-50% + var(--random-y, 0%))) rotate(var(--random-rotate, 0deg));
     max-width: 200px;
     max-height: 300px;
     border: 2px solid #00ffff;
     box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
     z-index: 1000;
     pointer-events: none;
-}
-
-.catalog-row[style*="--side: left"] .BookCover__image {
-    left: 10%;
-    transform: translateY(calc(-50% + var(--random-y, 0%))) rotate(var(--random-rotate, 0deg));
-}
-
-.catalog-row[style*="--side: right"] .BookCover__image {
-    right: 10%;
-    transform: translateY(calc(-50% + var(--random-y, 0%))) rotate(var(--random-rotate, 0deg));
 }
 
 .catalog-row:hover .BookCover__image {
