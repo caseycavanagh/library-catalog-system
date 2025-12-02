@@ -127,7 +127,7 @@ function renderCatalog(booksToRender) {
 
     // Read section
     if (otherBooks.length > 0) {
-        html += '<div class="section-header">READ</div>';
+        html += '<div class="section-header">RECENTLY READ</div>';
         html += '<div class="section-content">';
         html += otherBooks.map(book => renderBook(book)).join('');
         html += '</div>';
