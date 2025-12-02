@@ -159,7 +159,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(to bottom, #00ffff, #000000);
+    background: linear-gradient(to bottom, #00ffff, #003333);
     mix-blend-mode: multiply;
     pointer-events: none;
 }
@@ -171,8 +171,8 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: #00ffff;
-    mix-blend-mode: lighten;
+    background: linear-gradient(to bottom, rgba(0, 255, 255, 0.4), rgba(0, 0, 0, 0.8));
+    mix-blend-mode: screen;
     pointer-events: none;
 }
 
