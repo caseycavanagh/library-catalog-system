@@ -56,10 +56,6 @@ body {
     text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
 }
 
-.search-input:focus {
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
-}
-
 #catalogContent {
     background-color: #000000;
 }
