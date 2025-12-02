@@ -57,6 +57,9 @@ function parseGoodreadsRSS(xmlText) {
         const shelf = item.querySelector('user_shelves')?.textContent || null;
         const bookId = item.querySelector('book_id')?.textContent || '';
         const readAt = item.querySelector('user_read_at')?.textContent || null;
+        const coverImage = item.querySelector('book_large_image_url')?.textContent ||
+                          item.querySelector('book_image_url')?.textContent ||
+                          item.querySelector('book_medium_image_url')?.textContent || '';
 
         books.push({
             title: title,
@@ -65,6 +68,7 @@ function parseGoodreadsRSS(xmlText) {
             shelf: shelf,
             bookId: bookId,
             readAt: readAt,
+            coverImage: coverImage,
             url: bookId ? `https://www.goodreads.com/book/show/${bookId}` : ''
         });
     });
@@ -112,11 +116,15 @@ function renderCatalog(booksToRender) {
 
 function renderBook(book) {
     const url = book.url || '#';
+    const coverImageHtml = book.coverImage
+        ? `<img src="${book.coverImage}" alt="${book.title}" class="BookCover__image" />`
+        : '';
 
     return `
         <a href="${url}" target="_blank" rel="noopener noreferrer" class="catalog-row">
             <div class="book-title">${book.title}</div>
             <div class="book-meta">${book.author}</div>
+            ${coverImageHtml}
         </a>
     `;
 }
