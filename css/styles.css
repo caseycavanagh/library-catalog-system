@@ -106,10 +106,6 @@ body {
     border-bottom: none;
 }
 
-.catalog-row:hover {
-    background-color: transparent;
-}
-
 .book-title {
     font-weight: 400;
     margin-bottom: 4px;
@@ -125,12 +121,6 @@ body {
     max-width: 100%;
 }
 
-.catalog-row:hover .book-title {
-    background-color: #00ffff;
-    color: #000000;
-    text-decoration: none;
-}
-
 .book-meta {
     font-size: 16px;
     color: #00ffff;
@@ -138,12 +128,6 @@ body {
     display: block;
     width: fit-content;
     max-width: 100%;
-}
-
-.catalog-row:hover .book-meta {
-    background-color: #00ffff;
-    color: #000000;
-    text-decoration: none;
 }
 
 .BookCover__image {
@@ -161,8 +145,27 @@ body {
     pointer-events: none;
 }
 
-.catalog-row:hover .BookCover__image {
-    display: block;
+/* Hover effects - only on devices with hover capability (not mobile) */
+@media (hover: hover) and (pointer: fine) {
+    .catalog-row:hover {
+        background-color: transparent;
+    }
+
+    .catalog-row:hover .book-title {
+        background-color: #00ffff;
+        color: #000000;
+        text-decoration: none;
+    }
+
+    .catalog-row:hover .book-meta {
+        background-color: #00ffff;
+        color: #000000;
+        text-decoration: none;
+    }
+
+    .catalog-row:hover .BookCover__image {
+        display: block;
+    }
 }
 
 .footer {
