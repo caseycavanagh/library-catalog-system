@@ -111,21 +111,12 @@ function renderCatalog(booksToRender) {
 }
 
 function renderBook(book) {
-    let meta = book.author;
-
-    // Format read date if available
-    if (book.readAt) {
-        const readDate = new Date(book.readAt);
-        const readYear = readDate.getFullYear();
-        meta += ` · ${readYear}`;
-    }
-
     const url = book.url || '#';
 
     return `
         <a href="${url}" target="_blank" rel="noopener noreferrer" class="catalog-row">
             <div class="book-title">${book.title}</div>
-            <div class="book-meta">${meta}</div>
+            <div class="book-meta">${book.author}</div>
         </a>
     `;
 }
