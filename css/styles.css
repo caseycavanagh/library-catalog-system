@@ -155,6 +155,37 @@ body {
     text-decoration: underline;
 }
 
+/* Loading Spinner */
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    flex-direction: column;
+}
+
+.spinner {
+    border: 3px solid rgba(0, 255, 255, 0.1);
+    border-top: 3px solid #00ffff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+.loading-text {
+    margin-top: 15px;
+    color: #00ffff;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 @media (max-width: 768px) {
     body {
         padding: 15px;
