@@ -5,13 +5,14 @@
 }
 
 body {
-    background-color: #000080;
+    background-color: #000000;
     color: #00ffff;
-    font-family: 'IBM Plex Mono', 'Courier New', monospace;
-    font-size: 14px;
+    font-family: 'VT323', 'IBM Plex Mono', 'Courier New', monospace;
+    font-size: 18px;
     line-height: 1.4;
     padding: 20px;
     overflow-y: scroll;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
 }
 
 .container {
@@ -20,50 +21,69 @@ body {
 }
 
 .header {
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 400;
     margin-bottom: 20px;
-    letter-spacing: 2px;
-    padding: 10px;
-    text-align: center;
-    background-color: #000080;
-    color: #00ffff;
+    letter-spacing: 4px;
+    padding: 15px;
+    text-align: left;
+    background-color: #00ffff;
+    color: #000000;
+    border: 2px solid #00ffff;
+    text-transform: uppercase;
+    text-shadow: none;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
 }
 
 .search-input {
     width: 100%;
-    background-color: #000080;
-    border: 1px solid #00ffff;
+    background-color: #000000;
+    border: 2px solid #00ffff;
     color: #00ffff;
-    padding: 8px 10px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 14px;
+    padding: 10px 12px;
+    font-family: 'VT323', 'IBM Plex Mono', monospace;
+    font-size: 18px;
     outline: none;
     margin-bottom: 20px;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+    caret-color: #00ffff;
 }
 
 .search-input::placeholder {
     color: #00ffff;
-    opacity: 0.5;
+    opacity: 0.6;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+}
+
+.search-input:focus {
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
 }
 
 #catalogContent {
-    background-color: #000080;
+    background-color: #000000;
 }
 
 .section-header {
-    padding: 10px 0;
-    background-color: #000080;
+    padding: 12px 0;
+    background-color: #000000;
     color: #00ffff;
-    font-weight: 600;
-    letter-spacing: 1px;
+    font-weight: 400;
+    letter-spacing: 3px;
     margin-bottom: 10px;
+    margin-top: 15px;
+    text-transform: uppercase;
+    border-top: 2px solid #00ffff;
+    border-bottom: 2px solid #00ffff;
+    padding-left: 12px;
+    text-shadow: 0 0 8px rgba(0, 255, 255, 0.7);
 }
 
 .section-content {
-    background-color: #000080;
-    border: 1px solid #00ffff;
+    background-color: #000000;
+    border: 2px solid #00ffff;
     margin-bottom: 25px;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
 }
 
 .section-content:last-child {
@@ -71,14 +91,15 @@ body {
 }
 
 .catalog-row {
-    padding: 12px 15px;
+    padding: 14px 16px;
     border-bottom: 1px solid #00ffff;
     display: block;
-    transition: background-color 0.1s ease;
+    transition: all 0.05s ease;
     text-decoration: none;
     color: #00ffff;
     cursor: pointer;
     position: relative;
+    background-color: #000000;
 }
 
 .section-content .catalog-row:last-child {
@@ -86,28 +107,37 @@ body {
 }
 
 .catalog-row:hover {
-    background-color: transparent;
+    background-color: #00ffff;
+    color: #000000;
+}
+
+.catalog-row:hover .book-title,
+.catalog-row:hover .book-meta {
+    color: #000000;
+    text-shadow: none;
 }
 
 .catalog-row:hover .book-meta {
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .book-title {
     font-weight: 400;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
     text-transform: uppercase;
     color: #00ffff;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
 }
 
 .catalog-row:hover .book-title {
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .book-meta {
-    font-size: 13px;
+    font-size: 16px;
     color: #00ffff;
     line-height: 1.5;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
 }
 
 .BookCover__image {
@@ -130,29 +160,35 @@ body {
 
 .footer {
     margin-top: 40px;
-    padding: 20px 10px;
-    text-align: center;
-    font-size: 13px;
-    border-top: 1px solid #00ffff;
+    padding: 20px 12px;
+    text-align: left;
+    font-size: 16px;
+    border-top: 2px solid #00ffff;
 }
 
 .footer-description {
     margin-bottom: 10px;
     color: #00ffff;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
 }
 
 .footer-copyright {
     color: #00ffff;
-    font-size: 12px;
+    font-size: 14px;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
 }
 
 .footer-copyright a {
     color: #00ffff;
     text-decoration: none;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
 }
 
 .footer-copyright a:hover {
-    text-decoration: underline;
+    background-color: #00ffff;
+    color: #000000;
+    text-shadow: none;
+    padding: 2px 4px;
 }
 
 /* Loading Spinner */
@@ -165,20 +201,22 @@ body {
 }
 
 .spinner {
-    border: 3px solid rgba(0, 255, 255, 0.1);
-    border-top: 3px solid #00ffff;
+    border: 4px solid rgba(0, 255, 255, 0.2);
+    border-top: 4px solid #00ffff;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     animation: spin 1s linear infinite;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
 }
 
 .loading-text {
-    margin-top: 15px;
+    margin-top: 20px;
     color: #00ffff;
     text-transform: uppercase;
-    font-size: 13px;
-    letter-spacing: 1px;
+    font-size: 16px;
+    letter-spacing: 3px;
+    text-shadow: 0 0 8px rgba(0, 255, 255, 0.7);
 }
 
 @keyframes spin {
@@ -189,14 +227,23 @@ body {
 @media (max-width: 768px) {
     body {
         padding: 15px;
-        font-size: 13px;
+        font-size: 16px;
     }
 
     .header {
-        font-size: 14px;
+        font-size: 16px;
+        letter-spacing: 2px;
     }
 
     .search-input {
-        font-size: 13px;
+        font-size: 16px;
+    }
+
+    .book-title {
+        font-size: 16px;
+    }
+
+    .book-meta {
+        font-size: 14px;
     }
 }
