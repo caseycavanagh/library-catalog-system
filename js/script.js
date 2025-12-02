@@ -91,11 +91,11 @@ function renderCatalog(booksToRender) {
 
     let html = '';
 
-    // Currently Reading section
+    // Currently Reading section - show only the most recent
     if (currentlyReading.length > 0) {
         html += '<div class="section-header">CURRENTLY READING</div>';
         html += '<div class="section-content">';
-        html += currentlyReading.map(book => renderBook(book)).join('');
+        html += renderBook(currentlyReading[0]);
         html += '</div>';
     }
 
