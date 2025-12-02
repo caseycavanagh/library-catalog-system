@@ -3,68 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LIBRARY CATALOG SYSTEM v3.2</title>
+    <title>Casey's Catalog</title>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <div class="header-title">LIBRARY CATALOG SYSTEM v3.2 [ACTIVE]</div>
-            <div class="header-line">═══════════════════════════════════════════════════════════════════</div>
-            <div class="header-line">METROPOLITAN PUBLIC LIBRARY DATABASE | DEWEY DECIMAL CLASSIFICATION</div>
-        </div>
+        <div class="header">Casey's Catalog</div>
 
-        <div class="status-bar">
-            <div class="status-item">
-                <span class="status-indicator"></span>
-                <span>SYSTEM STATUS: ONLINE</span>
-            </div>
-            <div class="status-item">
-                <span>TOTAL RECORDS: 847,293</span>
-            </div>
-            <div class="status-item">
-                <span>LAST UPDATE: 2025-12-01 09:37:04</span>
-            </div>
-            <div class="status-item">
-                <span class="status-indicator"></span>
-                <span>RECORDS AVAILABLE: 734,102</span>
-            </div>
-        </div>
+        <input type="text" class="search-input" placeholder="search..." id="searchInput">
 
-        <div class="search-bar">
-            <input type="text" class="search-input" placeholder="SEARCH BY TITLE, AUTHOR, OR CALL #" id="searchInput">
-            <button class="pagination-btn" onclick="filterCatalog()">SEARCH</button>
-            <button class="pagination-btn" onclick="resetSearch()">RESET</button>
-        </div>
-
-        <div class="catalog-container">
-            <div class="catalog-header">
-                <div>CALL #</div>
-                <div>TITLE</div>
-                <div>AUTHOR</div>
-                <div>YEAR</div>
-                <div>STATUS</div>
-                <div>GENRE</div>
-                <div>NOTES</div>
-            </div>
-
-            <div id="catalogContent">
-                <!-- Rows will be inserted here -->
-            </div>
-        </div>
+        <div id="catalogContent"></div>
 
         <div class="footer">
-            <div class="footer-info">
-                <div class="footer-item">RECORDS SHOWN: <span id="recordCount">15</span>/847293</div>
-                <div class="footer-item">DATABASE: MARC | ENCODING: UTF-8 | FORMAT: FIXED-LENGTH</div>
+            <div class="footer-description">
+                A personal library catalog powered by Goodreads
             </div>
-            <div class="pagination">
-                <button class="pagination-btn active">1</button>
-                <button class="pagination-btn">2</button>
-                <button class="pagination-btn">3</button>
-                <span style="color: #666;">...</span>
-                <button class="pagination-btn">NEXT</button>
+            <div class="footer-copyright">
+                © 2025 <a href="https://caseycavanagh.com" target="_blank" rel="noopener noreferrer">Casey Cavanagh</a>
             </div>
         </div>
     </div>

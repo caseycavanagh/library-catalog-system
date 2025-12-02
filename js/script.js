@@ -1,44 +1,127 @@
-const books = [
-    { callNumber: "813.6 GIB", title: "Neuromancer", author: "William Gibson", year: 1984, status: "Available", genre: "Cyberpunk", notes: "First ed. hardcover" },
-    { callNumber: "302.2307 NOR", title: "The Design of Everyday Things", author: "Don Norman", year: 1988, status: "Checked Out", genre: "Design", notes: "Revised edition 2013" },
-    { callNumber: "813.6 MOR", title: "Beloved", author: "Toni Morrison", year: 1987, status: "Available", genre: "Literary Fiction", notes: "Pulitzer Prize 1988" },
-    { callNumber: "005.13 KNU", title: "The Art of Computer Programming Vol.1", author: "Donald Knuth", year: 1968, status: "On Hold", genre: "Computer Science", notes: "3rd edition" },
-    { callNumber: "620.0042 LIU", title: "The Pragmatic Programmer", author: "David Thomas, Andrew Hunt", year: 1999, status: "Available", genre: "Technology", notes: "20th Anniversary Ed." },
-    { callNumber: "814 DFW", title: "A Supposedly Fun Thing I'll Never Do Again", author: "David Foster Wallace", year: 1997, status: "Available", genre: "Essays", notes: "First printing" },
-    { callNumber: "823.914 SMI", title: "Cryptonomicon", author: "Neal Stephenson", year: 1999, status: "Checked Out", genre: "Science Fiction", notes: "Historical fiction" },
-    { callNumber: "530.11 HAW", title: "A Brief History of Time", author: "Stephen Hawking", year: 1988, status: "Available", genre: "Physics", notes: "Illustrated ed." },
-    { callNumber: "796.334 PEL", title: "Pelé: My Life and the Beautiful Game", author: "Pelé", year: 1977, status: "Available", genre: "Biography", notes: "Autobiography" },
-    { callNumber: "741.5973 COB", title: "Understanding Comics", author: "Scott McCloud", year: 1993, status: "On Hold", genre: "Art/Media", notes: "Graphic novel" },
-    { callNumber: "006.3 HOP", title: "Gödel, Escher, Bach", author: "Douglas Hofstadter", year: 1979, status: "Checked Out", genre: "Philosophy", notes: "Pulitzer Prize 1980" },
-    { callNumber: "070.92 ECO", title: "Foucault's Pendulum", author: "Umberto Eco", year: 1988, status: "Available", genre: "Literary Mystery", notes: "Italian original 1988" },
-    { callNumber: "911 DIC", title: "Perdido Street Station", author: "China Miéville", year: 2000, status: "Available", genre: "Weird Fiction", notes: "Hugo Award nominee" },
-    { callNumber: "813.54 POW", title: "Neuromancer: Pattern Recognition", author: "William Gibson", year: 2003, status: "Checked Out", genre: "Cyberpunk", notes: "UK first ed." },
-    { callNumber: "005.133 STR", title: "Effective C++", author: "Scott Meyers", year: 1992, status: "Available", genre: "Programming", notes: "50 ways to improve" }
-];
+let allBooks = [];
 
-let allBooks = [...books];
+async function fetchGoodreadsBooks() {
+    const content = document.getElementById('catalogContent');
+    content.innerHTML = '<div class="book-title">loading library...</div>';
+
+    const goodreadsUserId = '36960444-casey-cavanagh';
+    const rssUrl = `https://www.goodreads.com/review/list_rss/${goodreadsUserId}?shelf=%23ALL%23`;
+
+    // Try multiple CORS proxies
+    const proxies = [
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(rssUrl)}`,
+        `https://corsproxy.io/?${encodeURIComponent(rssUrl)}`,
+        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(rssUrl)}`
+    ];
+
+    for (let proxyUrl of proxies) {
+        try {
+            console.log(`Trying proxy: ${proxyUrl}`);
+            const response = await fetch(proxyUrl, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/xml, text/xml, */*'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const xmlText = await response.text();
+            allBooks = parseGoodreadsRSS(xmlText);
+            console.log(`Loaded ${allBooks.length} books from Goodreads`);
+
+            renderCatalog(allBooks);
+            return; // Success, exit the function
+        } catch (error) {
+            console.error(`Proxy failed:`, error);
+            // Continue to next proxy
+        }
+    }
+
+    // If all proxies fail, show error
+    content.innerHTML = `<div class="book-title">Error: Could not fetch from Goodreads. Check console for details.</div>`;
+}
+
+function parseGoodreadsRSS(xmlText) {
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+    const items = xmlDoc.querySelectorAll('item');
+
+    const books = [];
+    items.forEach(item => {
+        const title = item.querySelector('title')?.textContent || '';
+        const author = item.querySelector('author_name')?.textContent || '';
+        const year = item.querySelector('book_published')?.textContent || null;
+        const rating = item.querySelector('user_rating')?.textContent || '0';
+        const shelf = item.querySelector('user_shelves')?.textContent || null;
+        const bookId = item.querySelector('book_id')?.textContent || '';
+
+        books.push({
+            title: title,
+            author: author,
+            year: year,
+            rating: rating,
+            shelf: shelf,
+            bookId: bookId,
+            url: bookId ? `https://www.goodreads.com/book/show/${bookId}` : ''
+        });
+    });
+
+    return books;
+}
 
 function renderCatalog(booksToRender) {
     const content = document.getElementById('catalogContent');
-    content.innerHTML = booksToRender.map((book, index) => `
-        <div class="catalog-row" data-index="${index}"
-             data-label-callnumber="CALL #: "
-             data-label-title="TITLE: "
-             data-label-author="AUTHOR: "
-             data-label-year="YEAR: "
-             data-label-status="STATUS: "
-             data-label-genre="GENRE: "
-             data-label-notes="NOTES: ">
-            <div class="call-number">${book.callNumber}</div>
-            <div class="title">${book.title}</div>
-            <div class="author">${book.author}</div>
-            <div class="year">${book.year}</div>
-            <div class="status ${book.status.toLowerCase().replace(' ', '-')}">${book.status}</div>
-            <div class="genre">${book.genre}</div>
-            <div class="genre">${book.notes}</div>
-        </div>
-    `).join('');
-    document.getElementById('recordCount').textContent = booksToRender.length;
+
+    if (booksToRender.length === 0) {
+        content.innerHTML = '<div class="book-title">No books found</div>';
+        return;
+    }
+
+    // Separate books by shelf
+    const currentlyReading = booksToRender.filter(book =>
+        book.shelf && book.shelf.includes('currently-reading')
+    );
+    const otherBooks = booksToRender.filter(book =>
+        !book.shelf || !book.shelf.includes('currently-reading')
+    );
+
+    let html = '';
+
+    // Currently Reading section
+    if (currentlyReading.length > 0) {
+        html += '<div class="section-header">CURRENTLY READING</div>';
+        html += '<div class="section-content">';
+        html += currentlyReading.map(book => renderBook(book)).join('');
+        html += '</div>';
+    }
+
+    // Read section
+    if (otherBooks.length > 0) {
+        html += '<div class="section-header">READ</div>';
+        html += '<div class="section-content">';
+        html += otherBooks.map(book => renderBook(book)).join('');
+        html += '</div>';
+    }
+
+    content.innerHTML = html;
+}
+
+function renderBook(book) {
+    let meta = book.author;
+    if (book.year) meta += ` · ${book.year}`;
+    if (book.rating && book.rating !== '0') meta += ` · *${book.rating}`;
+
+    const url = book.url || '#';
+
+    return `
+        <a href="${url}" target="_blank" rel="noopener noreferrer" class="catalog-row">
+            <div class="book-title">${book.title}</div>
+            <div class="book-meta">${meta}</div>
+        </a>
+    `;
 }
 
 function filterCatalog() {
@@ -51,21 +134,12 @@ function filterCatalog() {
     const filtered = allBooks.filter(book =>
         book.title.toLowerCase().includes(searchTerm) ||
         book.author.toLowerCase().includes(searchTerm) ||
-        book.callNumber.toLowerCase().includes(searchTerm) ||
-        book.genre.toLowerCase().includes(searchTerm)
+        (book.shelf && book.shelf.toLowerCase().includes(searchTerm))
     );
     renderCatalog(filtered);
 }
 
-function resetSearch() {
-    document.getElementById('searchInput').value = '';
-    renderCatalog(allBooks);
-}
+document.getElementById('searchInput').addEventListener('input', filterCatalog);
 
-document.getElementById('searchInput').addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-        filterCatalog();
-    }
-});
-
-renderCatalog(allBooks);
+// Fetch books on load
+fetchGoodreadsBooks();
