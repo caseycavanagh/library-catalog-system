@@ -2,7 +2,7 @@ let allBooks = [];
 
 async function fetchGoodreadsBooks() {
     const content = document.getElementById('catalogContent');
-    content.innerHTML = '<div class="book-title">loading library...</div>';
+    content.innerHTML = '<div class="loading-container"><div class="spinner"></div><div class="loading-text">loading library...</div></div>';
 
     const goodreadsUserId = '36960444-casey-cavanagh';
     const rssUrl = `https://www.goodreads.com/review/list_rss/${goodreadsUserId}?shelf=%23ALL%23`;
