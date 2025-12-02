@@ -101,10 +101,16 @@ body {
 
 .book-title {
     font-weight: 400;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
     text-transform: uppercase;
     color: #00ffff;
-    display: inline;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-height: 1.3;
 }
 
 .catalog-row:hover .book-title {
@@ -117,7 +123,7 @@ body {
     font-size: 16px;
     color: #00ffff;
     line-height: 1.5;
-    display: inline;
+    display: block;
 }
 
 .catalog-row:hover .book-meta {
