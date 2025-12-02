@@ -1,5 +1,25 @@
 let allBooks = [];
 
+// Update header with current date/time
+function updateDateTime() {
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('en-US', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+    }).toUpperCase();
+    const timeStr = now.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+    });
+    document.getElementById('dateTime').textContent = `${dateStr} ${timeStr}`;
+}
+
+// Update time immediately and then every minute
+updateDateTime();
+setInterval(updateDateTime, 60000);
+
 async function fetchGoodreadsBooks() {
     const content = document.getElementById('catalogContent');
     content.innerHTML = '<div class="loading-container"><div class="spinner"></div><div class="loading-text">loading library...</div></div>';
@@ -107,7 +127,7 @@ function renderCatalog(booksToRender) {
 
     // Read section
     if (otherBooks.length > 0) {
-        html += '<div class="section-header">READ</div>';
+        html += '<div class="section-header">RECENTLY READ</div>';
         html += '<div class="section-content">';
         html += otherBooks.map(book => renderBook(book)).join('');
         html += '</div>';

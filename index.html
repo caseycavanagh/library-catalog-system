@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casey's Catalog</title>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <title>Casey's Bookshelf</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <div class="container">
-        <div class="header">Casey's Catalog</div>
+        <div class="header" id="headerBar">
+            Casey's Bookshelf | <span id="dateTime"></span>
+        </div>
 
-        <input type="text" class="search-input" placeholder="search..." id="searchInput">
+        <input type="text" class="search-input" placeholder="> search..." id="searchInput">
 
         <div id="catalogContent"></div>
 
