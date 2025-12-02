@@ -85,7 +85,8 @@ function renderCatalog(booksToRender) {
         book.shelf && book.shelf.includes('currently-reading')
     );
     const otherBooks = booksToRender.filter(book =>
-        !book.shelf || !book.shelf.includes('currently-reading')
+        (!book.shelf || !book.shelf.includes('currently-reading')) &&
+        (!book.shelf || !book.shelf.includes('to-read'))
     );
 
     let html = '';
@@ -126,17 +127,22 @@ function renderBook(book) {
 
 function filterCatalog() {
     const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-    if (!searchTerm) {
-        renderCatalog(allBooks);
-        return;
+
+    // First filter out "to-read" books
+    let booksToShow = allBooks.filter(book =>
+        !book.shelf || !book.shelf.includes('to-read')
+    );
+
+    // Then apply search filter if there's a search term
+    if (searchTerm) {
+        booksToShow = booksToShow.filter(book =>
+            book.title.toLowerCase().includes(searchTerm) ||
+            book.author.toLowerCase().includes(searchTerm) ||
+            (book.shelf && book.shelf.toLowerCase().includes(searchTerm))
+        );
     }
 
-    const filtered = allBooks.filter(book =>
-        book.title.toLowerCase().includes(searchTerm) ||
-        book.author.toLowerCase().includes(searchTerm) ||
-        (book.shelf && book.shelf.toLowerCase().includes(searchTerm))
-    );
-    renderCatalog(filtered);
+    renderCatalog(booksToShow);
 }
 
 document.getElementById('searchInput').addEventListener('input', filterCatalog);
