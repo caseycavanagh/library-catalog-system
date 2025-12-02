@@ -120,8 +120,17 @@ function renderBook(book) {
         ? `<img src="${book.coverImage}" alt="${book.title}" class="BookCover__image" />`
         : '';
 
+    // Generate random positioning and rotation for each book cover
+    const randomX = (Math.random() - 0.5) * 60; // -30% to +30%
+    const randomY = (Math.random() - 0.5) * 40; // -20% to +20%
+    const randomRotate = (Math.random() - 0.5) * 16; // -8deg to +8deg
+
     return `
-        <a href="${url}" target="_blank" rel="noopener noreferrer" class="catalog-row">
+        <a href="${url}"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="catalog-row"
+           style="--random-x: ${randomX}%; --random-y: ${randomY}%; --random-rotate: ${randomRotate}deg;">
             <div class="book-title">${book.title}</div>
             <div class="book-meta">${book.author}</div>
             ${coverImageHtml}
