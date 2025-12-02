@@ -33,7 +33,7 @@ body {
 .search-input {
     width: 100%;
     background-color: #000080;
-    border: 2px solid #00ffff;
+    border: 1px solid #00ffff;
     color: #00ffff;
     padding: 8px 10px;
     font-family: 'IBM Plex Mono', monospace;
@@ -62,7 +62,7 @@ body {
 
 .section-content {
     background-color: #000080;
-    border: 2px solid #00ffff;
+    border: 1px solid #00ffff;
     margin-bottom: 25px;
 }
 
@@ -85,12 +85,11 @@ body {
 }
 
 .catalog-row:hover {
-    background-color: #00ffff;
-    color: #000080;
+    background-color: transparent;
 }
 
 .catalog-row:hover .book-meta {
-    color: #000080;
+    text-decoration: underline;
 }
 
 .book-title {
@@ -101,7 +100,7 @@ body {
 }
 
 .catalog-row:hover .book-title {
-    color: #000080;
+    text-decoration: underline;
 }
 
 .book-meta {
@@ -115,7 +114,7 @@ body {
     padding: 20px 10px;
     text-align: center;
     font-size: 13px;
-    border-top: 2px solid #00ffff;
+    border-top: 1px solid #00ffff;
 }
 
 .footer-description {
