@@ -143,6 +143,7 @@ body {
     box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
     z-index: 1000;
     pointer-events: none;
+    filter: grayscale(100%) sepia(100%) hue-rotate(180deg) saturate(0.6) brightness(0.9);
 }
 
 /* Hover effects - only on devices with hover capability (not mobile) */
