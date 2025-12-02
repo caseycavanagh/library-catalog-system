@@ -60,6 +60,8 @@ function parseGoodreadsRSS(xmlText) {
         const coverImage = item.querySelector('book_large_image_url')?.textContent ||
                           item.querySelector('book_image_url')?.textContent ||
                           item.querySelector('book_medium_image_url')?.textContent || '';
+        const reviewLink = item.querySelector('link')?.textContent ||
+                          item.querySelector('guid')?.textContent || '';
 
         books.push({
             title: title,
@@ -69,7 +71,7 @@ function parseGoodreadsRSS(xmlText) {
             bookId: bookId,
             readAt: readAt,
             coverImage: coverImage,
-            url: bookId ? `https://www.goodreads.com/book/show/${bookId}` : ''
+            url: reviewLink || (bookId ? `https://www.goodreads.com/book/show/${bookId}` : '')
         });
     });
 
