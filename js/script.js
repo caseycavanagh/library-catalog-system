@@ -1,5 +1,46 @@
 let allBooks = [];
 
+// Fake Dewey Decimal System - categorizes books based on title/author keywords
+function generateCallNumber(book) {
+    const titleLower = book.title.toLowerCase();
+    const authorLower = book.author.toLowerCase();
+    const combined = titleLower + ' ' + authorLower;
+
+    // Dewey Decimal categories with keyword matching
+    const categories = [
+        { range: 000, keywords: ['computer', 'information', 'data', 'technology', 'digital', 'internet', 'ai', 'algorithm'] },
+        { range: 100, keywords: ['philosophy', 'psychology', 'mind', 'think', 'conscious', 'mental', 'brain', 'anxiety', 'trauma'] },
+        { range: 200, keywords: ['religion', 'god', 'spiritual', 'faith', 'church', 'christian', 'evangelical', 'bible'] },
+        { range: 300, keywords: ['social', 'society', 'political', 'politics', 'economic', 'poverty', 'culture', 'american', 'war', 'history of'] },
+        { range: 500, keywords: ['science', 'nature', 'physics', 'biology', 'tuberculosis', 'medical', 'body'] },
+        { range: 600, keywords: ['business', 'management', 'medicine', 'engineering', 'cook', 'hospitality', 'nike', 'advertising'] },
+        { range: 700, keywords: ['art', 'music', 'design', 'photography', 'springsteen', 'radiohead', 'band', 'album', 'song', 'reality tv', 'museum'] },
+        { range: 900, keywords: ['history', 'biography', 'memoir', 'life', 'story', 'world', 'war', 'died', 'manson', 'jobs', 'dynasty', 'sackler', 'johnson'] },
+    ];
+
+    // Find matching category, default to 800 (Literature) if no match
+    let baseNumber = 800;
+    for (const category of categories) {
+        if (category.keywords.some(keyword => combined.includes(keyword))) {
+            baseNumber = category.range;
+            break;
+        }
+    }
+
+    // Generate a consistent subcategory based on author's last name
+    const authorHash = book.author.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    const subcategory = (authorHash % 100).toString().padStart(2, '0');
+
+    // Generate specific number based on title
+    const titleHash = book.title.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    const specific = (titleHash % 100).toString().padStart(2, '0');
+
+    // Format: XXX.YY ZZ (e.g., 973.92 SMI)
+    const authorCode = book.author.split(' ').pop().substring(0, 3).toUpperCase();
+
+    return `${baseNumber}.${subcategory} ${authorCode}`;
+}
+
 // Update header with current date/time
 function updateDateTime() {
     const now = new Date();
@@ -149,6 +190,9 @@ function renderBook(book) {
     const randomY = (Math.random() - 0.5) * 40; // -20% to +20%
     const randomRotate = (Math.random() - 0.5) * 16; // -8deg to +8deg
 
+    // Generate call number for every book
+    const callNumber = generateCallNumber(book);
+
     return `
         <a href="${url}"
            target="_blank"
@@ -157,6 +201,7 @@ function renderBook(book) {
            style="--random-x: ${randomX}%; --random-y: ${randomY}%; --random-rotate: ${randomRotate}deg;">
             <div class="book-title">${book.title}</div>
             <div class="book-meta">${book.author}</div>
+            <div class="book-meta call-number">${callNumber}</div>
             ${coverImageHtml}
         </a>
     `;
