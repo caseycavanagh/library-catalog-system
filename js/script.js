@@ -118,7 +118,6 @@ function parseGoodreadsRSS(xmlText) {
         const shelf = item.querySelector('user_shelves')?.textContent || null;
         const bookId = item.querySelector('book_id')?.textContent || '';
         const readAt = item.querySelector('user_read_at')?.textContent || null;
-        const isbn = item.querySelector('isbn')?.textContent || '';
         const coverImage = item.querySelector('book_large_image_url')?.textContent ||
                           item.querySelector('book_image_url')?.textContent ||
                           item.querySelector('book_medium_image_url')?.textContent || '';
@@ -132,7 +131,6 @@ function parseGoodreadsRSS(xmlText) {
             shelf: shelf,
             bookId: bookId,
             readAt: readAt,
-            isbn: isbn,
             coverImage: coverImage,
             url: reviewLink || (bookId ? `https://www.goodreads.com/book/show/${bookId}` : '')
         });
@@ -195,9 +193,6 @@ function renderBook(book) {
     // Generate call number for every book
     const callNumber = generateCallNumber(book);
 
-    // ISBN display - only show if available
-    const isbnHtml = book.isbn ? `<div class="book-meta">ISBN ${book.isbn}</div>` : '';
-
     return `
         <a href="${url}"
            target="_blank"
@@ -207,7 +202,6 @@ function renderBook(book) {
             <div class="book-title">${book.title}</div>
             <div class="book-meta">${book.author}</div>
             <div class="book-meta call-number">${callNumber}</div>
-            ${isbnHtml}
             ${coverImageHtml}
         </a>
     `;
@@ -226,7 +220,6 @@ function filterCatalog() {
         booksToShow = booksToShow.filter(book =>
             book.title.toLowerCase().includes(searchTerm) ||
             book.author.toLowerCase().includes(searchTerm) ||
-            (book.isbn && book.isbn.toLowerCase().includes(searchTerm)) ||
             (book.shelf && book.shelf.toLowerCase().includes(searchTerm))
         );
     }
